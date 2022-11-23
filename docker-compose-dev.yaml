@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+    todo-ui:
+
+        build:
+            context: ./todo-ui
+            dockerfile: Dockerfile.dev
+
+        image: todo-ui-dev:0.1.0
+
+        container_name: todo-ui-dev
+
+        ports:
+            - 3333:3000
+
+        environment:
+            HOST: 0.0.0.0
+            PORT: 3000
+            WDS_SOCKET_PORT: 3333
+
+        # монтирование конфиг файла снаружи в конфиг файл внутри контейнера
+        # в dev режиме это можно делать, при сборке так делать уже нельзя
+        volumes:
+            - ./config-todo-ui/config.js:/app/config/config.js:ro

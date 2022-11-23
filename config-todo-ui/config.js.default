@@ -1,0 +1,75 @@
+// ----------------------------------------------------------------------------------------------------------------------
+// общее
+// ----------------------------------------------------------------------------------------------------------------------
+
+// хосты & ip-адреса
+export const localHost = "localhost";
+export const localIP = "127.0.0.1";
+
+// ----------------------------------------------------------------------------------------------------------------------
+// todo-ui
+// ----------------------------------------------------------------------------------------------------------------------
+
+// хост на котором запущен todo_ui
+export const applicationHost = "http://localhost:3000";
+
+// название для токена аутентификации помещаемого в localStorage
+export const authTokenName = "authToken";
+
+// лимит записей на странице
+export const todosOnPageLimit = 20;
+
+// лимит отображаемых страниц в пагинации
+export const paginationPagesLimit = 10;
+
+// максимальное количество страниц в пагинации отображаемых слева от текущей
+export const leftPagintionLimit = 5;
+
+// максимальное количество страниц в пагинации отображаемых справа от текущей
+export const rightPaginationLimit = 4;
+
+// endpoint-ы todo_ui
+export const todoUIEndpoints = {
+
+    // auth
+    login: "/login",
+    logout: "/logout",
+    registration: "/registration",
+
+    // user
+    profile: '/profile',
+
+    // todo
+    main: "/",
+
+    // common
+    notFound: "*"
+};
+
+// ----------------------------------------------------------------------------------------------------------------------
+// todo-backend
+// ----------------------------------------------------------------------------------------------------------------------
+
+// хост на котором запущен todo_backend
+export const todoBackendHost = "http://localhost:8888";
+
+// префикс для токена аутентификации принимаемого todo_backend
+export const authTokenPrefix = "Token";
+
+// endpoint-ы todo_backend
+export const todoBackendEndpoints = {
+
+    // auth
+    authTokenGet: "/api/v1/auth/token/get/",
+    authTokenRemove: "/api/v1/auth/token/remove/",
+    registration: "/api/v1/registration/",
+
+    // user
+    profile: "/api/v1/profile",
+
+    // todo
+    addTodo: "/api/v2/todo/",
+    deleteTodo: "/api/v2/todo",
+    getTodoList: "/api/v2/todo",
+    toggleTodo: "/api/v2/todo/"
+};

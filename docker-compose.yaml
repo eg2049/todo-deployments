@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+
+    todo-ui:
+
+        # всегда стартует после падения или перезапуска системы
+        restart: always
+
+        # ждёт пока не соберётся и не запустится контейнер с бэкендом
+        depends_on:
+            - todo-backend
+
+    todo-backend:
+
+        build:
+            context: ./todo-backend
+            dockerfile: Dockerfile
+
+        image: todo-backend:0.1.0
+
+        container_name: todo-backend
+
+        # stdin_open: true
+
+        # tty: true
+
+        restart: always
+
+        # весь трафик на поступающий на 8888 порт на локальной машине
+        # отправляется на 8000 порт внутри контейнера
+        ports:
+            - 8888:8000
+
+        environment:
+            HOST: 0.0.0.0
+            PORT: 8000
+
+        # монтирование конфиг файла снаружи в конфиг файл внутри контейнера
+        volumes:
+            - ./config-todo-backend/config.py:/app/config/config.py/:ro
+
+        # ждёт пока не соберётся и не запустится контейнер с postgres
+        depends_on:
+            - todo-postgres
+
+    todo-postgres:
+
+        image: postgres:14.5
+
+        container_name: todo-postgres
+
+        restart: always
+
+        ports:
+            - 6432:5432
+
+        # файл с переменными
+        env_file:
+            - backend.env
+
+        volumes:
+            - ./postgres-data/:/var/lib/postgresql/data/
+            - ./postgres-init/:/docker-entrypoint-initdb.d/

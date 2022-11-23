@@ -4,9 +4,9 @@ config.js
 *.env
 
 # application stuff
-todo_backend/
-todo_ui/
-postgres_data/
+todo-backend/
+todo-ui/
+postgres-data/
 
 # Jetbrains IDEA
 .idea/
