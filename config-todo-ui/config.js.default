@@ -65,11 +65,11 @@ export const todoBackendEndpoints = {
     registration: "/api/v1/registration/",
 
     // user
-    profile: "/api/v1/profile",
+    profile: "/api/v1/profile/",
 
     // todo
     addTodo: "/api/v2/todo/",
-    deleteTodo: "/api/v2/todo",
-    getTodoList: "/api/v2/todo",
+    deleteTodo: "/api/v2/todo/",
+    getTodoList: "/api/v2/todo/",
     toggleTodo: "/api/v2/todo/"
 };
