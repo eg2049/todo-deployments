@@ -11,7 +11,7 @@ export const localIP = "127.0.0.1";
 // ----------------------------------------------------------------------------------------------------------------------
 
 // хост на котором запущен todo_ui
-export const applicationHost = "http://localhost:3000";
+export const applicationHost = "http://localhost:4000";
 
 // название для токена аутентификации помещаемого в localStorage
 export const authTokenName = "authToken";
@@ -51,7 +51,7 @@ export const todoUIEndpoints = {
 // ----------------------------------------------------------------------------------------------------------------------
 
 // хост на котором запущен todo_backend
-export const todoBackendHost = "http://localhost:8888";
+export const todoBackendHost = "http://localhost:9000";
 
 // префикс для токена аутентификации принимаемого todo_backend
 export const authTokenPrefix = "Token";
