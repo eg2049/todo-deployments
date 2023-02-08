@@ -6,6 +6,7 @@ config.js
 # application stuff
 todo-backend/
 todo-ui/
+notifier/
 postgres-data/
 kafka-data/
 zookeeper-data/

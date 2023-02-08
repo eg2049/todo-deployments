@@ -44,6 +44,36 @@ services:
             - todo-postgres
             - todo-kafka
 
+    notifier:
+
+        build:
+            context: ./notifier
+            dockerfile: Dockerfile
+
+        image: notifier:0.1.0
+
+        container_name: notifier
+
+        # stdin_open: true
+
+        # tty: true
+
+        restart: always
+
+        ports:
+            - 8010:8010
+
+        environment:
+            HOST: 0.0.0.0
+            PORT: 8010
+
+        volumes:
+            - ./config-notifier/config.py:/app/config/config.py/:ro
+
+        depends_on:
+            - todo-postgres
+            - todo-kafka
+
     todo-postgres:
 
         image: postgres:14.5
