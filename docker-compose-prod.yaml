@@ -30,3 +30,22 @@ services:
 
             - ./certs/certbot/conf/:/etc/letsencrypt:ro
             - ./certs/certbot/www/:/var/www/certbot:ro
+
+    todo-kafka:
+
+        environment:
+            KAFKA_CFG_ZOOKEEPER_CONNECT: todo-zoo:2181
+            KAFKA_CFG_LISTENERS: PLAINTEXT://todo-kafka:9092
+            KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://todo-kafka:9092
+            KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+            ALLOW_PLAINTEXT_LISTENER: 'yes'
+
+    # для создания SSL сертификтов в letsencrypt
+    certbot:
+        image: certbot/certbot
+
+        volumes:
+            - ./certs/certbot/conf/:/etc/letsencrypt:rw
+            - ./certs/certbot/www/:/var/www/certbot:rw
+
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

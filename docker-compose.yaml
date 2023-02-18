@@ -4,8 +4,8 @@ services:
 
     todo-ui:
 
-        # всегда стартует после падения или перезапуска системы
-        restart: always
+        # # всегда стартует после падения или перезапуска системы
+        # restart: always
 
         # ждёт пока не соберётся и не запустится контейнер с бэкендом
         depends_on:
@@ -25,7 +25,7 @@ services:
 
         # tty: true
 
-        restart: always
+        # restart: always
 
         # весь трафик на поступающий на 9000 порт на локальной машине
         # отправляется на 8000 порт внутри контейнера
@@ -58,7 +58,7 @@ services:
 
         # tty: true
 
-        restart: always
+        # restart: always
 
         ports:
             - 8010:8010
@@ -121,25 +121,8 @@ services:
         ports:
             - 9092:9092
 
-        environment:
-            KAFKA_CFG_ZOOKEEPER_CONNECT: todo-zoo:2181
-            KAFKA_CFG_LISTENERS: PLAINTEXT://todo-kafka:9092
-            KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://todo-kafka:9092
-            KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
-            ALLOW_PLAINTEXT_LISTENER: 'yes'
-
         volumes:
             - ./kafka-data:/bitnami/kafka:rw
 
         depends_on:
             - todo-zoo
-
-    # для создания SSL сертификтов в letsencrypt
-    certbot:
-        image: certbot/certbot
-
-        volumes:
-            - ./certs/certbot/conf/:/etc/letsencrypt:rw
-            - ./certs/certbot/www/:/var/www/certbot:rw
-
-        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"

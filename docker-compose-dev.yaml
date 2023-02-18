@@ -24,3 +24,12 @@ services:
         # в dev режиме это можно делать, при сборке так делать уже нельзя
         volumes:
             - ./config-todo-ui/config.js:/app/config/config.js:ro
+
+    todo-kafka:
+
+        environment:
+            KAFKA_CFG_ZOOKEEPER_CONNECT: todo-zoo:2181
+            KAFKA_CFG_LISTENERS: PLAINTEXT://:9092
+            KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+            KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+            ALLOW_PLAINTEXT_LISTENER: 'yes'
