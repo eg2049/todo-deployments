@@ -39,7 +39,7 @@ export const todoUIEndpoints = {
 
     // user
     profile: '/profile',
-    profile: '/profileConfirmation',
+    profileConfirmation: '/profileConfirmation',
 
     // todo
     main: "/",
