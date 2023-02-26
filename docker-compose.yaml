@@ -4,9 +4,6 @@ services:
 
     todo-ui:
 
-        # # всегда стартует после падения или перезапуска системы
-        # restart: always
-
         # ждёт пока не соберётся и не запустится контейнер с бэкендом
         depends_on:
             - todo-backend
@@ -24,8 +21,6 @@ services:
         # stdin_open: true
 
         # tty: true
-
-        # restart: always
 
         # весь трафик на поступающий на 9000 порт на локальной машине
         # отправляется на 8000 порт внутри контейнера
@@ -57,8 +52,6 @@ services:
         # stdin_open: true
 
         # tty: true
-
-        # restart: always
 
         ports:
             - 8010:8010

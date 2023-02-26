@@ -4,6 +4,9 @@ services:
 
     todo-ui:
 
+        # всегда стартует после падения или перезапуска системы
+        restart: always
+
         build:
             context: ./todo-ui
             dockerfile: Dockerfile.prod
@@ -30,6 +33,14 @@ services:
 
             - ./certs/certbot/conf/:/etc/letsencrypt:ro
             - ./certs/certbot/www/:/var/www/certbot:ro
+
+    todo-backend:
+
+        restart: always
+
+    notifier:
+
+        restart: always
 
     todo-kafka:
 
