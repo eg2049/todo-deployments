@@ -80,7 +80,7 @@ services:
 
         # файл с переменными
         env_file:
-            - backend.env
+            - environment.env
 
         volumes:
             - ./postgres-data/:/var/lib/postgresql/data/

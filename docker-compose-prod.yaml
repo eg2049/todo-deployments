@@ -25,6 +25,9 @@ services:
             - 80:80
             - 443:443
 
+        env_file:
+            - environment.env
+
         # монтирование файла конфигурации nginx
         # монтирование директории с конфигурацией доступных сайтов
         volumes:
@@ -53,7 +56,10 @@ services:
 
     # для создания SSL сертификтов в letsencrypt
     certbot:
+
         image: certbot/certbot
+
+        container_name: certbot
 
         volumes:
             - ./certs/certbot/conf/:/etc/letsencrypt:rw
