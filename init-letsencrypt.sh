@@ -5,11 +5,39 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(todo.org)
-rsa_key_size=4096
-data_path="./certs/certbot"
-email="test@email.com" # Adding a valid address is strongly recommended
-staging=0 # Set to 1 if you're testing your setup to avoid hitting request limits
+container_name_certbot=${1}
+container_name_ui=${2}
+domains=(${3}) # example.com
+email=${4} # Adding a valid address is strongly recommended
+rsa_key_size=${5}
+staging=${6} # Set to 1 if you're testing your setup to avoid hitting request limits else 0
+data_path=${7}
+
+if ! [ $container_name_certbot ]; then
+    echo "ERROR: Please provide container name of certbot in docker-compose."
+    exit 1
+elif ! [ $container_name_ui ]; then
+    echo "ERROR: Please provide container name of UI in docker-compose."
+    exit 1
+elif ! [ $domains ]; then
+    echo "ERROR: Please provide the application domain."
+    exit 1
+elif ! [ $email ]; then
+    echo "ERROR: Please provide email for the TLS certificate."
+    exit 1
+fi
+
+if ! [ $rsa_key_size ]; then
+    rsa_key_size=4096
+fi
+
+if ! [ $staging ]; then
+    staging=0
+fi
+
+if ! [ $data_path ]; then
+    data_path="./certs/certbot"
+fi
 
 if [ -d "$data_path" ]; then
   read -p "Existing data found for $domains. Continue and replace existing certificate? (y/N) " decision
@@ -34,19 +62,19 @@ docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml run --rm --ent
   openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
     -keyout '$path/privkey.pem' \
     -out '$path/fullchain.pem' \
-    -subj '/CN=localhost'" certbot
+    -subj '/CN=localhost'" $container_name_certbot
 echo
 
 
-echo "### Starting todo-ui ..."
-docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml up --force-recreate -d todo-ui
+echo "### Starting $container_name_ui ..."
+docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml up --force-recreate -d $container_name_ui
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
 docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml run --rm --entrypoint "\
   rm -Rf /etc/letsencrypt/live/$domains && \
   rm -Rf /etc/letsencrypt/archive/$domains && \
-  rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
+  rm -Rf /etc/letsencrypt/renewal/$domains.conf" $container_name_certbot
 echo
 
 
@@ -73,8 +101,8 @@ docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml run --rm --ent
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
-    --force-renewal" certbot
+    --force-renewal" $container_name_certbot
 echo
 
-echo "### Reloading todo-ui ..."
-docker-compose exec todo-ui nginx -s reload
+echo "### Reloading $container_name_ui ..."
+docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml exec $container_name_ui nginx -s reload
