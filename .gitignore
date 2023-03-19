@@ -12,6 +12,9 @@ kafka-data/
 zookeeper-data/
 certs/
 
+# kubernetes-dev
+kubernetes/
+
 # Jetbrains IDEA
 .idea/
 
