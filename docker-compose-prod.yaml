@@ -12,9 +12,11 @@ services:
             dockerfile: Dockerfile.prod
 
             # вместо environment и env_file
-            # аргументы отсюда можно использовать в контейнере c node
+            # аргументы отсюда можно использовать при билде UI (образ c node)
+            # передать их можно через командную строку 
+            # TODO_BACKEND_HOST=http://localhost:8000 docker-compose -f docker-compose.yaml -f docker-compose-prod.yaml build --no-cache todo-ui
             args:
-                - ARG_FROM_DOCKER_COMPOSE=1613
+                TODO_BACKEND_HOST: ${TODO_BACKEND_HOST}
 
         image: todo-ui:0.1.0
 

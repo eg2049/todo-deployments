@@ -2,16 +2,17 @@
 // общее
 // ----------------------------------------------------------------------------------------------------------------------
 
-// хосты & ip-адреса
+// хосты
 export const localHost = "localhost";
+export const localHostHTTP = "http://localhost";
+
+// ip-адреса
 export const localIP = "127.0.0.1";
+export const localIPHTTP = "http://127.0.0.1";
 
 // ----------------------------------------------------------------------------------------------------------------------
 // todo-ui
 // ----------------------------------------------------------------------------------------------------------------------
-
-// хост на котором запущен todo_ui
-export const applicationHost = "http://localhost:4000";
 
 // название для токена аутентификации помещаемого в localStorage
 export const authTokenName = "authToken";
@@ -28,7 +29,7 @@ export const leftPagintionLimit = 5;
 // максимальное количество страниц в пагинации отображаемых справа от текущей
 export const rightPaginationLimit = 4;
 
-// endpoint-ы todo_ui
+// endpoint-ы todo-ui
 export const todoUIEndpoints = {
 
     // auth
@@ -38,8 +39,8 @@ export const todoUIEndpoints = {
     registrationSucceeded: "/registrationSucceeded",
 
     // user
-    profile: '/profile',
-    profileConfirmation: '/profileConfirmation',
+    profile: "/profile",
+    profileConfirmation: "/profileConfirmation",
 
     // todo
     main: "/",
@@ -52,13 +53,13 @@ export const todoUIEndpoints = {
 // todo-backend
 // ----------------------------------------------------------------------------------------------------------------------
 
-// хост на котором запущен todo_backend
-export const todoBackendHost = "http://localhost:9000";
+// хост на котором запущен todo-backend
+export const todoBackendHost = process.env.TODO_BACKEND_HOST || "http://localhost:8000";
 
-// префикс для токена аутентификации принимаемого todo_backend
+// префикс для токена аутентификации принимаемого todo-backend
 export const authTokenPrefix = "Token";
 
-// endpoint-ы todo_backend
+// endpoint-ы todo-backend
 export const todoBackendEndpoints = {
 
     // auth

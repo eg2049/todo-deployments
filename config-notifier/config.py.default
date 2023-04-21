@@ -5,12 +5,10 @@
 # хосты
 LOCAL_HOST = 'localhost'
 LOCAL_HOST_HTTP = 'http://localhost'
-LOCAL_HOST_HTTPS = 'https://localhost'
 
 # ip-адреса
 LOCAL_IP = '127.0.0.1'
 LOCAL_IP_HTTP = 'http://127.0.0.1'
-LOCAL_IP_HTTPS = 'https://127.0.0.1'
 
 # ----------------------------------------------------------------------------------------------------------------------
 # django project

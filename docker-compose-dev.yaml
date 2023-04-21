@@ -13,12 +13,12 @@ services:
         container_name: todo-ui-dev
 
         ports:
-            - 4000:3000
+            - 3000:3000
 
         environment:
             HOST: 0.0.0.0
             PORT: 3000
-            WDS_SOCKET_PORT: 4000
+            WDS_SOCKET_PORT: 3000
 
         # монтирование конфиг файла снаружи в конфиг файл внутри контейнера
         # в dev режиме это можно делать, при сборке так делать уже нельзя
